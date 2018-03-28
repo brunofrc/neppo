@@ -1,0 +1,110 @@
+<div id="lpd-container">
+    <form class="col s12 ">
+        <div class="panel-heading">
+            <h5>
+                <b>Pratos</b>
+            </h5>
+            Filtros
+        </div>
+        <div class="panel-body form-group">
+            Nome
+            <input name="nome" class="form-control" id="nomePrato" [(ngModel)]="pratoRequest.nome">
+            <button type="button" class="btn" id="pesquisar" (click)="pesquisarPrato(pratoRequest);readAllRestaurantes();">
+                <span class="glyphicon glyphicon-search">Pesquisar</span>
+            </button>
+            <button type="button" class="btn" data-toggle="modal" data-target="#criarModalPrato" (click)="readAllRestaurantes();">
+                <span class="glyphicon glyphicon-plus">Cadastrar</span>
+            </button>
+
+            <div *ngFor="let prato of pratos; let p = index" class="col-md-12">
+                <table style="margin:10px;">
+                    <tr>
+                        <div id="{{p}}">
+                            <td>
+                                <button type="button" class="btn" (click)="delete(prato)" style="margin:15px;">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#editarModalPrato" (click)="pratoEdit=prato;">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <label>Restaurante</label>
+                                <br>
+                                <p>{{prato.restaurante.nome}}</p>
+                            </td>
+                            <td>
+                                <label>Prato</label>
+                                <br>
+                                <p>{{prato.nome}}</p>
+                            </td>
+                            <td>
+                                <label>Preço</label>
+                                <br>
+                                <p>R${{prato.preco}}</p>
+                            </td>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="modal fade" id="criarModalPrato" tabindex="-1" role="dialog" aria-labelledby="criarModalPrato" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="criarModalPratoLabel">Cadastrar Prato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div id="successCreate" class="alert alert-success" hidden>
+                            <strong>Success!</strong>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        Nome
+                        <input name="nomeCreatePrato" class="form-control" id="nomeCreatePrato" [(ngModel)]="newPratoRequest.nome"> Restaurante
+                        <select class="form-control col-md-12" id="restaurantePrato" name="restaurantePrato" [(ngModel)]="restauranteRequest">
+                            <option *ngFor=" let restaurante of restaurantes" [ngValue]="restaurante">{{restaurante.nome}}</option>
+                        </select>
+                        <input name="precoCreatePrato" class="form-control" id="precoCreatePrato" [(ngModel)]="newPratoRequest.preco">
+                        Preço
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="create(newPratoRequest)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editarModalPrato" tabindex="-1" role="dialog" aria-labelledby="editarModalPrato" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarpratoModalLabel">Editar Prato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div id="successEdit" class="alert alert-success" hidden>
+                            <strong>Success!</strong>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                            Nome
+                            <input name="nomeEditPrato" class="form-control" id="nomeEditPrato" [(ngModel)]="pratoEdit.nome"> Restaurante
+                            <select class="form-control col-md-12" id="restauranteEditPrato" name="restauranteEditPrato" [(ngModel)]="pratoEdit.restaurante">
+                                <option *ngFor=" let restaurante of restaurantes" [ngValue]="restaurante">{{restaurante.nome}}</option>
+                            </select>
+                            <input name="precoEditPrato" class="form-control" id="precoEditPrato" [(ngModel)]="pratoEdit.preco">
+                            Preço
+                         </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="update(pratoEdit)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

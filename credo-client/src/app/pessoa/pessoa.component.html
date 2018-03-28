@@ -1,0 +1,86 @@
+<div id="lpd-container">
+  <form class="col s12 ">
+    <div class="panel-heading">
+      <h5>
+        <b>Pessoas</b>
+      </h5>
+      Filtros
+    </div>
+    <div class="panel-body form-group">
+       <button type="button" class="btn" id="pesquisar" (click)="readAll()">
+        <span class="glyphicon glyphicon-search">Pesquisar</span>
+      </button>
+      <button type="button" class="btn" data-toggle="modal" data-target="#criarModal">
+          <span class="glyphicon glyphicon-plus">Cadastrar</span>
+      </button>
+
+      <div *ngFor="let pessoa of pessoas; let p = index" class="col-md-12">
+        <table style="margin:10px;">
+          <tr>
+            <div id="{{p}}">
+              <td>
+                <button type="button" class="btn" (click)="delete(pessoa)" style="margin:15px;">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn" data-toggle="modal" data-target="#editarModal" (click)="pessoaEdit=pessoa;">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+              </td>
+              <td>
+                <b>{{pessoa.nome}}</b>
+              </td>
+            </div>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="modal fade" id="criarModal" tabindex="-1" role="dialog" aria-labelledby="criarModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="criarModalLabel">Cadastrar Pessoa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    <div id="successCreate" class="alert alert-success" hidden>
+                      <strong>Success!</strong>
+                    </div>
+          </div>
+          <div class="modal-body">
+            Nome
+            <input name="nomeCreate" class="form-control" id="nomeCreate" [(ngModel)]="newPessoaRequest.nome">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="create(newPessoaRequest)">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="criarModalLabel">Editar Pessoa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div id="successEdit" class="alert alert-success" hidden>
+              <strong>Success!</strong>
+            </div>
+          </div>
+          <div class="modal-body">
+            Nome
+            <input name="nomePessoaEdit" class="form-control" id="nomePessoaEdit" [(ngModel)]="pessoaEdit.nome">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="update(pessoaEdit)">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
